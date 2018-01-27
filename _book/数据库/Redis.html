@@ -1,0 +1,557 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Redis | 3种常用数据库</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../数据库/MySQL.html" />
+    
+    
+    <link rel="prev" href="../index.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book"
+        data-level="1"
+        data-chapter-title="Redis"
+        data-filepath="数据库/Redis.md"
+        data-basepath=".."
+        data-revision="Tue Sep 05 2017 07:22:12 GMT+0800 (马来西亚半岛标准时间)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        数据库
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="1" data-path="数据库/Redis.html">
+            
+                
+                    <a href="../数据库/Redis.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        Redis
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="数据库/MySQL.html">
+            
+                
+                    <a href="../数据库/MySQL.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        MySQL
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="数据库/MongoDB.html">
+            
+                
+                    <a href="../数据库/MongoDB.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        MongoDB
+                    </a>
+            
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >3种常用数据库</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h2 id="redis&#x6570;&#x636E;&#x5E93;">Redis&#x6570;&#x636E;&#x5E93;</h2>
+<ol>
+<li>redis&#x4E2D;&#x6570;&#x636E;&#x5E93;&#x6CA1;&#x6709;&#x540D;&#x5B57;&#xFF0C;&#x9ED8;&#x8BA4;16&#x4E2A;&#xFF0C;&#x7528;0-15&#x8868;&#x793A;</li>
+<li>redis&#x662F;key-value &#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x6BCF;&#x6761;&#x6570;&#x636E;&#x90FD;&#x662F;&#x4E00;&#x4E2A;&#x952E;&#x503C;&#x5BF9;</li>
+<li>&#x952E;&#xFF1A;&#x5B57;&#x7B26;&#x4E32;&#x7C7B;&#x578B;&#xFF0C;<strong>&#x952E;&#x4E0D;&#x80FD;&#x91CD;&#x590D;</strong></li>
+<li>&#x503C;&#xFF1A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x54C8;&#x5E0C;(hash),&#x5217;&#x8868;&#xFF0C;&#x96C6;&#x5408;(set)&#xFF0C;&#x6709;&#x5E8F;&#x96C6;&#x5408;(zset)
+&#xFF08;&#x5F53;&#x5173;&#x95ED;&#x6570;&#x636E;&#x5E93;&#x540E;&#xFF0C;&#x4E0B;&#x6B21;&#x67E5;&#x8BE2;&#x5BF9;&#x4E8E;&#x5F88;&#x591A;&#x6570;&#x636E;&#x80AF;&#x5B9A;&#x4E0D;&#x80FD;&#x5B8C;&#x5168;&#x8BB0;&#x4F4F;&#x5176; &#x7C7B;&#x578B;
+&#x8FD9;&#x65F6;&#x5C31;&#x9700;&#x8981;&#x901A;&#x8FC7;type &#x952E;&#x540D;&#xFF0C;&#x67E5;&#x8BE2;&#x952E;&#x7684;&#x7C7B;&#x578B;&#x7136;&#x540E;&#x7528;&#x76F8;&#x5173;&#x547D;&#x4EE4;&#x5728;&#x53BB;&#x6267;&#x884C;&#xFF09;</li>
+</ol>
+<h2 id="1string&#x952E;&#x503C;&#x7684;&#x8BBE;&#x7F6E;&#xFF0C;&#x83B7;&#x53D6;&#xFF0C;&#x952E;&#x547D;&#x4EE4;&#xFF08;&#x952E;&#x7684;&#x67E5;&#x627E;&#xFF09;">1.string,&#x952E;&#x503C;&#x7684;&#x8BBE;&#x7F6E;&#xFF0C;&#x83B7;&#x53D6;&#xFF0C;&#x952E;&#x547D;&#x4EE4;&#xFF08;&#x952E;&#x7684;&#x67E5;&#x627E;&#xFF09;</h2>
+<table>
+<thead>
+<tr>
+<th>&#x64CD;&#x4F5C;</th>
+<th>&#x5BF9;&#x5E94;&#x8BED;&#x53E5;</th>
+<th>&#x5907;&#x6CE8;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>&#x8BBE;&#x7F6E;/&#x4FEE;&#x6539;&#x952E;&#x503C;</strong></td>
+<td>set name  Tom</td>
+<td>&#x8BBE;&#x7F6E;&#x952E;&#x4E3A;name &#x503C;&#x4E3A;Tom ,&#x82E5;&#x952E;name&#x5B58;&#x5728;&#x5219;&#x4FEE;&#x6539;&#x5176;&#x503C;</td>
+</tr>
+<tr>
+<td><strong>&#x8BBE;&#x7F6E;&#x952E;&#x503C;&#x53CA;&#x8FC7;&#x671F;&#x65F6;&#x95F4;(&#x79D2;)</strong></td>
+<td>setex name 6 Tom</td>
+<td>&#x8BBE;&#x7F6E;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#x4E3A;3&#x79D2;&#xFF0C;3&#x79D2;&#x540E;name&#x5BF9;&#x5E94;&#x7684;&#x503C;&#x5C06;&#x4E3A;&#x7A7A;</td>
+</tr>
+<tr>
+<td><strong>&#x8BBE;&#x7F6E;&#x591A;&#x4E2A;&#x952E;&#x503C;</strong></td>
+<td>mset name Tom hometown &#x6D59;&#x6C5F;</td>
+<td>&#x540C;&#x65F6;&#x8BBE;&#x7F6E;name&#x548C;hometown&#x952E;&#xFF0C;&#x5BF9;&#x5E94;&#x503C;&#x5206;&#x522B;&#x4E3A;Tom,&#x6D59;&#x6C5F;</td>
+</tr>
+<tr>
+<td><strong>&#x8FFD;&#x52A0;&#x952E;&#x503C;</strong></td>
+<td>append hometown &#x676D;&#x5DDE;</td>
+<td>&#x5728;&#x4E0A;&#x4E00;&#x6B65;hometown&#x503C;&#x7684;&#x57FA;&#x7840;&#x4E0A;&#x8FFD;&#x52A0;&#xFF0C;&#x73B0;&#x5728;hometown&#x5BF9;&#x5E94;&#x952E;&#x503C;&#x4E3A;&#x6D59;&#x6C5F;&#x676D;&#x5DDE;</td>
+</tr>
+<tr>
+<td><strong>&#x83B7;&#x53D6;&#x952E;&#x503C;</strong></td>
+<td>get name</td>
+<td>&#x83B7;&#x53D6;&#x952E;name&#x5BF9;&#x5E94;&#x7684;&#x952E;&#x503C;</td>
+</tr>
+<tr>
+<td><strong>&#x7531;&#x591A;&#x4E2A;&#x952E;&#x83B7;&#x53D6;&#x591A;&#x4E2A;&#x952E;&#x503C;</strong></td>
+<td>mget name age</td>
+<td>&#x5C06;&#x4F1A;&#x83B7;&#x53D6;&#x5230;&#x952E;name,age &#x5BF9;&#x5E94;&#x7684;&#x952E;&#x503C;</td>
+</tr>
+<tr>
+<td><strong>&#x5220;&#x9664;&#x952E;&#x503C;</strong></td>
+<td>del name age</td>
+<td>&#x952E;name,age&#x53CA;&#x5176;&#x5BF9;&#x5E94;&#x7684;&#x952E;&#x503C;&#x90FD;&#x4F1A;&#x88AB;&#x5220;&#x9664;</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>&#x64CD;&#x4F5C;</th>
+<th>&#x5BF9;&#x5E94;&#x8BED;&#x53E5;</th>
+<th>&#x8BF4;&#x660E;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>&#x67E5;&#x627E;&#x952E;1</strong></td>
+<td>keys *</td>
+<td>&#x67E5;&#x770B;&#x6240;&#x6709;&#x952E;</td>
+</tr>
+<tr>
+<td><strong>&#x67E5;&#x627E;&#x952E;2</strong></td>
+<td>keys <em>n</em></td>
+<td>&#x67E5;&#x627E;&#x952E;&#x540D;&#x4E2D;&#x5305;&#x542B;&#x5B57;&#x6BCD;n&#x7684;&#x952E;</td>
+</tr>
+<tr>
+<td><strong>&#x5224;&#x65AD;&#x952E;&#x662F;&#x5426;&#x5B58;&#x5728;</strong></td>
+<td>exists  name</td>
+<td>&#x5224;&#x8BFB;&#x952E;name&#x662F;&#x5426;&#x5B58;&#x5728;</td>
+</tr>
+<tr>
+<td><strong>&#x67E5;&#x770B;&#x952E;&#x503C;&#x7684;&#x7C7B;&#x578B;</strong></td>
+<td>type name</td>
+<td>&#x67E5;&#x770B;&#x952E;name&#x5BF9;&#x5E94;&#x952E;&#x503C;&#x7684;&#x7C7B;&#x578B;</td>
+</tr>
+<tr>
+<td><strong>&#x8BBE;&#x7F6E;&#x7684;&#x8FC7;&#x671F;&#x65F6;&#x95F4;(s)</strong></td>
+<td>expire name 10</td>
+<td>10s&#x540E;&#x952E;name&#x5C06;&#x4F1A;&#x88AB;&#x5220;&#x9664;&#xFF0C;&#x65E0;&#x8BBA;&#x8BBE;&#x7F6E;&#x524D;&#x662F;&#x5426;&#x6709;&#x952E;&#x503C;</td>
+</tr>
+<tr>
+<td><strong>&#x67E5;&#x770B;&#x6709;&#x6548;&#x65F6;&#x95F4;(s</strong>)</td>
+<td>ttl  name</td>
+<td>&#x67E5;&#x770B;&#x952E;name&#x7684;&#x6709;&#x6548;&#x65F6;&#x95F4;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2hash">2.hash</h2>
+<p> hash&#x7528;&#x4E8E;&#x5B58;&#x50A8;&#x5BF9;&#x8C61;&#xFF0C;&#x5BF9;&#x8C61;&#x7684;&#x7ED3;&#x6784;&#x4E3A;&#x5C5E;&#x6027;&#x3001;&#x503C;&#xFF0C;&#x503C;&#x7684;&#x7C7B;&#x578B;&#x4E3A;string</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>&#x5BF9;&#x5E94;&#x8BED;&#x53E5;</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>&#x589E;&#x52A0;/&#x4FEE;&#x6539;&#x5355;&#x4E2A;&#x5C5E;&#x6027;</strong></td>
+<td>hset  py1 name Tom</td>
+<td>&#x8BBE;&#x7F6E;&#x952E;py1&#x7684;&#x5C5E;&#x6027;name&#x503C;&#x4E3A;Tom</td>
+</tr>
+<tr>
+<td><strong>&#x8BBE;&#x7F6E;&#x591A;&#x4E2A;&#x5C5E;&#x6027;</strong></td>
+<td>hmset  py1  name Tom  age 12</td>
+<td>&#x8BBE;&#x7F6E;py1&#x5C5E;&#x6027;name,age&#x7684;&#x503C;&#x5206;&#x522B;&#x4E3A;Tom,12</td>
+</tr>
+<tr>
+<td><strong>&#x83B7;&#x53D6;&#x6240;&#x6709;&#x5C5E;&#x6027;&#x7684;&#x503C;</strong></td>
+<td>hvals py1</td>
+</tr>
+<tr>
+<td><strong>&#x83B7;&#x53D6;&#x952E;&#x6240;&#x6709;&#x5C5E;&#x6027;</strong></td>
+<td>hkeys py1</td>
+<td>&#x83B7;&#x53D6;&#x952E;py1&#x7684;&#x6240;&#x6709;&#x5C5E;&#x6027;</td>
+</tr>
+<tr>
+<td><strong>&#x83B7;&#x53D6;&#x952E;&#x7684;&#x6240;&#x6709;&#x5C5E;&#x6027;&#x53CA;&#x503C;</strong></td>
+<td>hgetall  py1</td>
+<td>&#x83B7;&#x53D6;&#x952E;py1&#x7684;&#x6240;&#x6709;&#x5C5E;&#x6027;&#x53CA;&#x503C;</td>
+</tr>
+<tr>
+<td><strong>&#x83B7;&#x53D6;&#x4E00;&#x4E2A;&#x5C5E;&#x6027;&#x7684;&#x503C;</strong></td>
+<td>hget  py1 name</td>
+<td>&#x83B7;&#x53D6;&#x952E;py1&#x5C5E;&#x6027;name&#x7684;&#x503C;</td>
+</tr>
+<tr>
+<td><strong>&#x83B7;&#x53D6;&#x591A;&#x4E2A;&#x5C5E;&#x6027;&#x7684;&#x503C;</strong></td>
+<td>hmget py1 name age</td>
+<td>&#x83B7;&#x53D6;&#x952E;py1&#x5C5E;&#x6027;name&#x548C;age&#x7684;&#x503C;</td>
+</tr>
+<tr>
+<td><strong>&#x5220;&#x9664;&#x952E;&#x7684;&#x5C5E;&#x6027;</strong></td>
+<td>hdel  py1 name age</td>
+<td>&#x5220;&#x9664;j&#x952E;py1&#x7684;name&#x548C;age&#x5C5E;&#x6027;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3list&#x5217;&#x8868;">3.list&#x5217;&#x8868;</h2>
+<ul>
+<li>&#x5217;&#x8868;&#x7684;&#x5143;&#x7D20;&#x7C7B;&#x578B;&#x4E3A;string,&#x6309;&#x7167;&#x63D2;&#x5165;&#x987A;&#x5E8F;&#x6392;&#x5E8F;</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>&#x5BF9;&#x5E94;&#x8BED;&#x53E5;</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>&#x5DE6;&#x4FA7;&#x63D2;&#x5165;&#x6570;&#x636E;</strong></td>
+<td>lpush  py2 a b</td>
+<td>&#x4ECE;&#x952E;&#x4E3A;py2&#x7684;&#x5217;&#x8868;&#x5DE6;&#x4FA7;&#x52A0;&#x5165;&#x6570;&#x636E;a,b</td>
+</tr>
+<tr>
+<td><strong>&#x5728;&#x53F3;&#x4FA7;&#x63D2;&#x5165;&#x6570;&#x636E;</strong></td>
+<td>rpush  py2 c d</td>
+<td>&#x4ECE;&#x952E;&#x4E3A;py2&#x7684;&#x5217;&#x8868;&#x53F3;&#x4FA7;&#x52A0;&#x5165;&#x6570;&#x636E;c,d</td>
+</tr>
+<tr>
+<td><strong>&#x5728;&#x6307;&#x5B9A;&#x5143;&#x7D20;&#x7684;&#x524D;&#x6216;&#x540E;&#x63D2;&#x5165;&#x65B0;&#x5143;&#x7D20;</strong></td>
+<td>linsert py2 before c  f</td>
+<td>&#x5728;&#x952E;&#x4E3A;py3&#x7684;&#x5217;&#x8868;&#x4E2D;&#x5143;&#x7D20;c&#x524D;&#x52A0;&#x5165;f</td>
+</tr>
+<tr>
+<td><strong>&#x83B7;&#x53D6;(&#x7D22;&#x5F15;&#x4ECE;&#x5DE6;&#x5F00;&#x59CB;)</strong></td>
+<td>lrange  py2  0  -1</td>
+<td>&#x83B7;&#x53D6;&#x952E;&#x4E3A;py2&#x7684;&#x5217;&#x8868;&#x6240;&#x6709;&#x5143;&#x7D20; ,0&#x8868;&#x793A;&#x7B2C;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#xFF0C;-1&#x8868;&#x793A;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x5143;&#x7D20;</td>
+</tr>
+<tr>
+<td><strong>&#x4FEE;&#x6539;</strong></td>
+<td>lset  py2  1  g</td>
+<td>&#x5C06;&#x952E;py2&#x7684;&#x5217;&#x8868;&#x4E2D;&#x4E0B;&#x8868;&#x4E3A;1(&#x7D22;&#x5F15;&#x4ECE;&#x5DE6;&#x5F00;&#x59CB;) &#x7684;&#x5143;&#x7D20;&#x6539;&#x4E3A;g</td>
+</tr>
+<tr>
+<td><strong>&#x5220;&#x9664;&#x6307;&#x5B9A;&#x5143;&#x7D20;</strong></td>
+<td>rem  py2  -2  a</td>
+<td>&#x4ECE;py2&#x5217;&#x8868;&#x53F3;&#x4FA7;&#x5F00;&#x59CB;&#x5220;&#x9664;a ,&#x4E00;&#x5171;&#x5220;&#x9664;2&#x4E2A;a</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>rem key count value    &#xFF1A;count&#x8868;&#x793A;&#x5220;&#x9664;&#x7684;&#x4E2A;&#x6570;&#xFF0C;&#x5927;&#x4E8E;0&#x4ECE;&#x5934;&#x5F80;&#x5C3E;&#x79FB;&#x9664;&#xFF0C;&#x5C0F;&#x4E8E;0&#x4ECE;&#x5C3E;&#x5F80;&#x5934;&#x79FB;&#x9664;&#xFF0C;&#x7B49;&#x4E8E;0&#x5168;&#x90E8;&#x5220;&#x9664; </p>
+</li>
+<li><p>&#x5907;&#x6CE8;&#xFF1A;&#x8FD4;&#x56DE;&#x5217;&#x8868;&#x91CC;&#x6307;&#x5B9A;&#x8303;&#x56F4;&#x5185;&#x7684;&#x5143;&#x7D20;,start&#x3001;stop&#x4E3A;&#x5143;&#x7D20;&#x7684;&#x4E0B;&#x6807;&#x7D22;&#x5F15;,&#x7D22;&#x5F15;&#x4ECE;&#x5DE6;&#x4FA7;&#x5F00;&#x59CB;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x4E3A;0,&#x7D22;&#x5F15;&#x53EF;&#x4EE5;&#x662F;&#x8D1F;&#x6570;&#xFF0C;&#x8868;&#x793A;&#x4ECE;&#x5C3E;&#x90E8;&#x5F00;&#x59CB;&#x8BA1;&#x6570;&#xFF0C;&#x5982;-1&#x8868;&#x793A;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x5143;&#x7D20;</p>
+</li>
+</ul>
+<h2 id="4set&#x96C6;&#x5408;">4.set&#x96C6;&#x5408;</h2>
+<ul>
+<li>&#x65E0;&#x5E8F;&#x96C6;&#x5408;,&#x5143;&#x7D20;&#x4E3A;string&#x7C7B;&#x578B;,&#x5143;&#x7D20;&#x5177;&#x6709;&#x552F;&#x4E00;&#x6027;&#xFF0C;&#x4E0D;&#x91CD;&#x590D;,&#x5BF9;&#x4E8E;&#x96C6;&#x5408;&#x6CA1;&#x6709;&#x4FEE;&#x6539;&#x64CD;&#x4F5C;
+&#xFF08;&#x53EF;&#x7528;&#x4E8E;&#x53BB;&#x91CD;&#xFF0C;&#x4F8B;&#x5982;&#x4ECE;&#x7F51;&#x7AD9;&#x4E0A;&#x4E0B;&#x8F7D;&#x6570;&#x636E;&#x51FA;&#x73B0;&#x6545;&#x969C;&#xFF0C;&#x9700;&#x4ECE;&#x5934;&#x5F00;&#x59CB;&#x4E0B;&#x8F7D;&#xFF0C;&#x82E5;&#x6B64;&#x65F6;&#x662F;&#x901A;&#x8FC7;&#x96C6;&#x5408;&#x8FDB;&#x884C;&#x50A8;&#x5B58;&#x5219;&#x4E0D;&#x4F1A;&#x51FA;&#x73B0;&#x91CD;&#x590D;&#x4E0B;&#x8F7D;&#x2014;&#xFF09;</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>&#x64CD;&#x4F5C;</th>
+<th>&#x8BED;&#x6CD5;</th>
+<th>&#x4F8B;&#x5B50;</th>
+<th>&#x8BF4;&#x660E;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&#x6DFB;&#x52A0;&#x5143;&#x7D20;</td>
+<td>sadd key  menber1 menber2...</td>
+<td>set  py3 a b c</td>
+<td>&#x5411;&#x952E;py3&#x7684;&#x96C6;&#x5408;&#x4E2D;&#x6DFB;&#x52A0;a,b,c</td>
+</tr>
+<tr>
+<td>&#x83B7;&#x53D6;&#x6240;&#x6709;&#x5143;&#x7D20;</td>
+<td>smembers  key</td>
+<td>smember  py3</td>
+<td>&#x83B7;&#x53D6;py3&#x7684;&#x96C6;&#x5408;&#x4E2D;&#x6240;&#x6709;&#x7684;&#x5143;&#x7D20;</td>
+</tr>
+<tr>
+<td>&#x5220;&#x9664;&#x6307;&#x5B9A;&#x5143;&#x7D20;</td>
+<td>srem  key  member</td>
+<td>srem  py3 a</td>
+<td>&#x5220;&#x9664;py3&#x7684;&#x96C6;&#x5408;&#x4E2D;a &#x8FD9;&#x4E2A;&#x5143;&#x7D20;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5zset&#x6709;&#x5E8F;&#x96C6;&#x5408;">5.zset&#x6709;&#x5E8F;&#x96C6;&#x5408;</h2>
+<ul>
+<li>&#x548C;set&#x76F8;&#x6BD4;&#xFF0C;&#x662F;&#x6709;&#x5E8F;&#x96C6;&#x5408;</li>
+<li>&#x6BCF;&#x4E2A;&#x5143;&#x7D20;&#x90FD;&#x4F1A;&#x5173;&#x8054;&#x4E00;&#x4E2A;double&#x7C7B;&#x578B;&#x7684;score&#xFF0C;&#x8868;&#x793A;&#x6743;&#x91CD;&#xFF0C;&#x901A;&#x8FC7;&#x6743;&#x91CD;&#x5C06;&#x5143;&#x7D20;&#x4ECE;&#x5C0F;&#x5230;&#x5927;&#x6392;&#x5E8F;</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>&#x64CD;&#x4F5C;</th>
+<th>&#x4F8B;&#x5B50;</th>
+<th>&#x8BF4;&#x660E;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&#x6DFB;&#x52A0;</td>
+<td>zadd  py4 3 a 4 c</td>
+<td>&#x5411;&#x96C6;&#x5408;py4&#x4E2D;&#x6DFB;&#x52A0;a,b&#x4E24;&#x4E2A;&#x5143;&#x7D20;&#xFF0C;&#x8BBE;&#x7F6E;&#x5176;&#x6743;&#x91CD;&#x5206;&#x522B;&#x4E3A;3,4 &#xFF0C;&#x5B58;&#x50A8;&#x7684;&#x987A;&#x5E8F;&#x4E3A;c,a</td>
+</tr>
+<tr>
+<td>&#x83B7;&#x53D6;</td>
+<td>zrange  py4 0 2</td>
+<td>&#x5728;&#x96C6;&#x5408;py4&#x4E2D;&#x4ECE;&#x4E0B;&#x6807;&#x4E3A;0&#x7684;&#x6570;&#x636E;&#x5F00;&#x59CB;&#x83B7;&#x53D6;&#x5230;&#x4E0B;&#x6807;2&#x7ED3;&#x675F;</td>
+</tr>
+<tr>
+<td>&#x8FD4;&#x56DE;score&#x5728;&#x4E00;&#x5B9A;&#x8303;&#x56F4;&#x5185;&#x7684;&#x5143;&#x7D20;</td>
+<td>zrangebyscore  py4 2 6</td>
+<td>&#x83B7;&#x53D6;py4&#x4E2D;&#x6743;&#x9650;&#x503C;&#x5728;2&#x548C;6&#x4E4B;&#x95F4;&#x7684;&#x5143;&#x7D20;</td>
+</tr>
+<tr>
+<td>&#x8FD4;&#x56DE;&#x6210;&#x5458;member&#x7684;score&#x5143;&#x7D20;</td>
+<td>zscore  py4 a</td>
+<td>&#x83B7;&#x53D6;&#x96C6;&#x5408;py4&#x4E2D;a&#x7684;&#x6743;&#x91CD;&#x503C;</td>
+</tr>
+<tr>
+<td>&#x5220;&#x9664;&#x6307;&#x5B9A;&#x5143;&#x7D20;</td>
+<td>zrem  py4 a</td>
+<td>&#x5220;&#x9664;&#x96C6;&#x5408;py4&#x4E2D;&#x7684;&#x5143;&#x7D20;a</td>
+</tr>
+<tr>
+<td>&#x5220;&#x9664;&#x6743;&#x91CD;&#x5728;&#x6307;&#x5B9A;&#x8303;&#x56F4;&#x7684;&#x5143;&#x7D20;</td>
+<td>zremrangebyscore  py4 2 6</td>
+<td>&#x83B7;&#x53D6;&#x96C6;&#x5408;py4&#x4E2D;&#x6743;&#x9650;&#x503C;&#x5728;2&#x548C;6&#x4E4B;&#x95F4;&#x7684;&#x5143;&#x7D20;</td>
+</tr>
+</tbody>
+</table>
+<p>zadd key score1 member1 score2 member2 ...<br></p>
+<h3 id="6python&#x4EA4;&#x4E92;">6.Python&#x4EA4;&#x4E92;</h3>
+<table border="2" cellpadding="10" align="center">
+    <tr align="left" valign="top">
+            <th>string</th>
+            <th>key</th>
+            <th>hash</th>
+            <th>list</th>
+            <th>set</th>
+            <th>zset</th>
+    </tr>
+    <tr align="left">
+            <td valign="top">set
+                    <br>setex&#xFF08;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#xFF09;
+                    <br>mset
+                    <br>get
+                    <br>mget
+                    <br>append
+            </td>
+            <td valign="top"> hset
+                    <br>hmset
+                    <br> hget
+                    <br> hmget
+                    <br> hkeys
+                    <br> hvals
+                    <br> &#x83B7;&#x53D6;&#x6240;&#x6709;&#x952E;&#x548C;&#x503C;
+                    <br> hdel
+            </td>
+            <td valign="top">
+                    keys
+                    <br> exists
+                    <br> type
+                    <br> delete
+                    <br> expire
+                    <br> getrange  
+                    <br> ttl
+            </td>
+            <td valign="top">
+                    lpush
+                    <br> rpush
+                    <br> linsert
+                    <br> range
+                    <br> set
+                    <br> lrem
+            </td>
+            <td valign="top">
+                    sadd
+                    <br>smembers
+                    <br>srem
+            </td>
+            <td valign="top">
+                    zadd
+                    <br> zrange
+                    <br> zrangebyscore
+                    <br> zscore
+                    <br> zremzrem
+                    <br>zremrangebyscore
+            </td>
+    </tr>
+
+</table>
+
+
+
+
+
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../index.html" class="navigation navigation-prev " aria-label="Previous page: 数据库"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../数据库/MySQL.html" class="navigation navigation-next " aria-label="Next page: MySQL"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>
